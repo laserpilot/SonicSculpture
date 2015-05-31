@@ -7,83 +7,32 @@
 #include "ofxGui.h"
 #include "fftShapes.h"
 
+/*
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ 
+ This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ 
+ Copyright 2015 Blair Neal
+ 
+ */
+
 class ofApp : public ofBaseApp {
 public:
 	void setup();
 	void update();
 	void draw();
     void keyPressed(int key);
-    void drawDebug();
-	
-	void draw3Dfigure();
-    
-    void setupGUI();
     
     fftShapes shapes;
-	
-    
-    float maxSound;
-    int loudestBand;
+
     
     int timePos;
-    ofMesh mesh;
     
     ofEasyCam easyCam;
     ofLight light;
     ofMaterial material;
     
     ofxPanel mainGui;
-    ofParameterGroup allParams;
-    ofParameterGroup soundParams;
-    ofParameterGroup colorParams;
-    ofParameterGroup shapeParams;
-    ofParameterGroup shapeTypes;
-    ofParameterGroup camPosParams;
     
-    ofParameter<int> fftBins, maxVol;
-    int prevFftBins;
-    ofParameter<float> binAmount, exponent, timeStep, scaleMesh, spinSpeed, spinRadius, spikeSize, radToSpike, smoosh;
-    ofParameter<int> meshSpacingWidth, meshSpacingDepth, maxMeshLength, thickness, maxSpikeHeight, volHistoryLength;
-    ofParameter<int> meshX, meshY, meshZ;
-    ofParameter<bool> bDrawDebug, autoClear,fftNormalize, autoSize, shapeCircular, shapeSpiral, shapeCurve, shapeSpring, shapeSpire, shapePlane, bShowBars, shapeDisc, shapeWavyDisc, bShowWireframe, pauseMesh;
-    ofParameter<ofColor> peakColor, bottomColor, quietColor, loudColor;
-    
-    //Need to set up color palettes
-    
-//    ofxPanel gui;
-//    ofxFloatSlider maxVol;
-//    ofxIntSlider fftBins;
-//    ofxFloatSlider binAmount;
-//    ofxFloatSlider exponent, timeStep, scaleMesh, spinSpeed, spinRadius, spikeSize, radToSpike, smoosh;
-//    ofxIntSlider meshSpacingWidth, meshSpacingDepth, maxMeshLength, thickness;
-//    ofxIntSlider lightX, lightY, lightZ;
-//    ofxIntSlider meshX, meshY, meshZ;
-//    ofxToggle autoSize, drawCircular, drawSpiral, drawCurvy, drawSpring, drawSpire,drawPlane, drawBars, drawDisc, drawWireframe;
-//    ofxIntSlider songSeconds;
-    
-    //float maxVol;
-   // int fftBins, prevFftBins;
-    //float binAmount, exponent, timeStep, scaleMesh, spinSpeed, spinRadius, spikeSize, radToSpike, smoosh;
-    //int meshSpacingWidth, meshSpacingDepth, maxMeshLength, thickness;
-    int lightX, lightY, lightZ;
-    //int meshX, meshY, meshZ;
-    //bool autoSize, drawCircular, drawSpiral, drawCurvy, drawSpring, drawSpire, drawPlane, drawBars, drawDisc, drawWireframe;
-    int songSeconds;
-    
-    ProcessFFT fft;
-    
-    float genericTimer;
-    
-    float numRevolutions;
-    
-//    ofColor peakColor;
-//    ofColor bottomColor;
-//    ofColor quietColor;
-//    ofColor loudColor;
-    
-    ofxAutoControlPanel controlPanel;
-    
-    enum drawingNames {DISC, SPRING, PLANE, CIRCULAR, SPIRAL, CURVY, SPIRE, WAVYDISC};
-    int drawTypeInt, prevDrawTypeInt;
     
 };

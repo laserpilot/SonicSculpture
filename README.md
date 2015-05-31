@@ -16,6 +16,7 @@ This work is licensed under the Creative Commons Attribution-NonCommercial-Share
 
 * Have an active audio input set in System Preferences
 * Select your shape from the left menu (Disc, Spring, Plane, Circle, Spiral, Curvy, Spire, Wavy Disc)
+* Use mouse to move shape around. Right click and drag to zoom in and out. Double click to reset camera to start position.
 * Adjust sound and shape sliders to achieve desired look of the spikes
 * When finished, press ’s’ to save mesh down to a file.
 
