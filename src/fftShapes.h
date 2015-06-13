@@ -27,6 +27,7 @@ public:
     void makeCurvy(int xIndex, float yHeight, int zTime);
     void makeSpire(int xIndex, float yHeight, int zTime);
     void makeWavyDisc(int xIndex, float yHeight, int zTime);
+    void makeStaff(int xIndex, float yHeight, int zTime);
     
     void saveToFile();
     void setShowDebug(bool drawIt);
@@ -67,7 +68,7 @@ private:
     
     //const string shapeNames[8] = {"Disc", "Spring", "Plane", "Circle", "Spiral", "Curvy", "Spire", "WavyDisc"};
     
-    enum drawingNames {DISC, SPRING, PLANE, CIRCULAR, SPIRAL, CURVY, SPIRE, WAVYDISC};
+    enum drawingNames {DISC, SPRING, PLANE, CIRCULAR, SPIRAL, CURVY, SPIRE, WAVYDISC, STAFF}; //staff not currently implemented
     
     
     int timePos;

@@ -146,6 +146,8 @@ void fftShapes::buildMainShape(){
                             makeSpire(x,y,z);
                         }else if(shapeTypeInt==WAVYDISC){
                             makeWavyDisc(x, y, z);
+                        }else if(shapeTypeInt==STAFF){
+                            makeStaff(x, y, z);
                         }
 
 
@@ -521,6 +523,24 @@ void fftShapes::makeWavyDisc(int xIndex, float yHeight, int zTime){
     }
 }
 
+void fftShapes::makeStaff(int xIndex, float yHeight, int zTime){
+    //Haven't nailed the math for this yet, and it will take a new structuring of the indices to make the proper surfaces, so its more of an undertaking...not currently working...
+
+    
+    float angle = ofMap(xIndex, 0,fftBins, 0,TWO_PI); //sets starting point of angle //phi
+    float wigglyRadius = spinRadius; //diameter + offset from audio
+    float tempX = (float)wigglyRadius * sin(angle); //outer radius
+    float tempY = (float)wigglyRadius * cos(angle);
+    
+
+    
+    mesh.addVertex(ofVec3f(tempX,tempY,zTime));
+    //Color via intensity
+    colorVertices(xIndex, yHeight);
+
+    
+}
+
 void fftShapes::drawDebug(){
     
     
@@ -556,7 +576,7 @@ void fftShapes::drawDebug(){
     ofSetColor(80);
     int meshLengthHolder = maxMeshLength;
     ofDrawBitmapString("Time Pos: " + ofToString(timePos) + "/" + ofToString(meshLengthHolder) + "  Time Elapsed: " + ofToString(((float)timePos/1800)*60,2) + "sec", 20, ofGetHeight()-60);
-    ofDrawBitmapString("Mesh will reset after :", 20, ofGetHeight()-40);
+    //ofDrawBitmapString("Mesh will reset after :", 20, ofGetHeight()-40);
     
     ofDrawBitmapString("Press 's' to save, 'r' to reset, 'c' to change color scheme\nClick/drag to move, right click and drag to zoom, \nDouble click to reset view\n1 to Pause iTunes, 2 to Play iTunes,  ", 400, ofGetHeight()-80);
     
@@ -589,7 +609,7 @@ void fftShapes::setupGUI(){
     shapeParams.add(radToSpike.set("Rad To Spike", 0.008, 0, 0.1)); //ratio of the radius of the circle to the size of a spike...needs work
     
     shapeTypes.setName("Select a shape");
-    shapeTypes.add(shapeTypeInt.set("Select Type", 0,0,8)); //this really needs to be a dropdown menu...
+    shapeTypes.add(shapeTypeInt.set("Select Type", 0,0,7)); //this really needs to be a dropdown menu...
     shapeTypes.add(shapeName.set("Type", ""));
     
     
@@ -662,6 +682,8 @@ void fftShapes::setShapeTypeString(){
         shapeName="Spire";
     }else if(shapeTypeInt==WAVYDISC){
         shapeName="Wavy Disc";
+    }else if(shapeTypeInt){
+        shapeName="Staff";
     }
 }
 
