@@ -3,6 +3,7 @@
 string drawTypeArray[] = {"Plane", "Circular","Spiral", "Curvy", "Spring", "Spire", "Disc", "Wavy Disc"};
 
 void ofApp::setup() {
+    ofSetWindowTitle("Sonic Sculpture");
 	ofSetVerticalSync(true);	
 	ofSetFrameRate(30); ///lets only sample 30 times a second instead of 60 - too much data otherwise
     
