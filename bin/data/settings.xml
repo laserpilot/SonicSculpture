@@ -1,0 +1,46 @@
+<Parameters>
+	<group>
+		<Draw_Bars>1</Draw_Bars>
+		<Show_Debug>1</Show_Debug>
+		<Show_Wireframe>0</Show_Wireframe>
+		<Pause_Mesh>0</Pause_Mesh>
+		<Select_a_shape>
+			<Select_Type>0</Select_Type>
+			<Type>Disc</Type>
+		</Select_a_shape>
+		<Sound_Params>
+			<Normalize_over_history>0</Normalize_over_history>
+			<Max_Volume>198</Max_Volume>
+			<Num_FFT_Bins>32</Num_FFT_Bins>
+			<Percentage_of_FFT>0.14</Percentage_of_FFT>
+			<Exponent_Curve>1.6</Exponent_Curve>
+			<Norm._Vol._History_Length>600</Norm._Vol._History_Length>
+			<Sample_frame_skip>2</Sample_frame_skip>
+		</Sound_Params>
+		<Shape_Controls>
+			<Auto_reset_mesh>0</Auto_reset_mesh>
+			<Space_btwn_time_pts>10</Space_btwn_time_pts>
+			<Mesh_Spacing_Width>20</Mesh_Spacing_Width>
+			<Spike_Scale_Factor>1</Spike_Scale_Factor>
+			<Max_Mesh_Length>10000</Max_Mesh_Length>
+			<Thickness>30</Thickness>
+			<Spin_Radius>700</Spin_Radius>
+			<Spin_Speed>1</Spin_Speed>
+			<Max_Spike_Size>40</Max_Spike_Size>
+			<Rad_To_Spike>0.008</Rad_To_Spike>
+		</Shape_Controls>
+		<Cam_Position_Controls>
+			<Scale_Mesh>0.1</Scale_Mesh>
+			<Mesh_X>0</Mesh_X>
+			<Mesh_Y>0</Mesh_Y>
+			<Mesh_Z>0</Mesh_Z>
+		</Cam_Position_Controls>
+		<Color_Controls>
+			<Peak_Color>255, 0, 0, 255</Peak_Color>
+			<Quiet_Color>0, 0, 0, 255</Quiet_Color>
+			<Loud_Color>255, 255, 255, 255</Loud_Color>
+			<Bottom_Color>244, 244, 244, 255</Bottom_Color>
+		</Color_Controls>
+	</group>
+<Parameters/>
+</Parameters>

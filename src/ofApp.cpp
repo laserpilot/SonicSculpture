@@ -25,6 +25,7 @@ void ofApp::setup() {
 
     mainGui.add(shapes.getParameters());
     mainGui.minimizeAll();
+    mainGui.loadFromFile("settings.xml");
     
 }
 
@@ -69,6 +70,14 @@ void ofApp::keyPressed(int key){
     };
     if (key=='c') {
         shapes.setColorScheme(ofRandom(0,6));
+    }
+    
+    if (key=='j') {
+        mainGui.saveToFile("settings.xml");
+    }
+    
+    if (key=='l') {
+        mainGui.loadFromFile("settings.xml");
     }
     
     if(key=='1'){
