@@ -88,17 +88,12 @@ void fftShapes::buildMainShape(){
     ofVec3f currentPt;
     //cout<<fft.getUnScaledLoudestValue()<<endl;
     if(!pauseMesh){
-        if (fft.getUnScaledLoudestValue()>1.0){ //dont draw if incoming volume is too low
-            //cout<<fft.getUnScaledLoudestValue()<< " "<<endl;
-            
-            if (ofGetElapsedTimef()>genericTimer+timeStep) {
-                
+        if(ofGetFrameNum()%timeStep==0){
+            if (fft.getUnScaledLoudestValue()>1.0){ //dont draw if incoming volume is too low
                 
                 if(fft.getNormalized()){
                     maxVol = 1; //just 0-1 when normalized
                 }
-                
-                genericTimer = ofGetElapsedTimef();
                 
                 for (int z = (timePos-1)*meshSpacingDepth; z<timePos*meshSpacingDepth; z = z+meshSpacingDepth) {
                     for (int x=0; x<fft.getNumFFTbins()*meshSpacingWidth; x = x+meshSpacingWidth) {
@@ -588,12 +583,12 @@ void fftShapes::setupGUI(){
     
     soundParams.setName("Sound Params");
     soundParams.add(fftNormalize.set("Normalize over history", false));
-    soundParams.add(maxVol.set("Max Volume", 200,1,500));
+    soundParams.add(maxVol.set("Max Volume", 80,1,500));
     soundParams.add(fftBins.set("Num FFT Bins", 32, 8, 96));
     soundParams.add(binAmount.set("Percentage of FFT", 0.14, 0.05, 0.5));
     soundParams.add(exponent.set("Exponent Curve", 1.6, 1, 3.0 ));
     soundParams.add(volHistoryLength.set("Norm. Vol. History Length", 600, 5, 800));
-    soundParams.add(timeStep.set("Time Step", 0, 0, 5)); //how often should we sample the sound input? Every frame, or less often?
+    soundParams.add(timeStep.set("Sample frame skip", 2, 1, 30)); //how often should we sample the sound input? Every frame, or less often? App runs at 60fps, so we just sample every other frame
     
     shapeParams.setName("Shape Controls");
     shapeParams.add(autoClear.set("Auto reset mesh",false)); //determines whether mesh will auto clear at the end of its max length

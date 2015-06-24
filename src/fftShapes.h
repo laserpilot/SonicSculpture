@@ -56,8 +56,8 @@ private:
 
     ofParameter<int> fftBins, maxVol;
     int prevFftBins;
-    ofParameter<float> binAmount, exponent, timeStep, scaleMesh, spinSpeed, spinRadius, spikeScaleFactor, radToSpike, smoosh;
-    ofParameter<int> meshSpacingWidth, meshSpacingDepth, maxMeshLength, thickness, maxSpikeHeight, volHistoryLength;
+    ofParameter<float> binAmount, exponent, scaleMesh, spinSpeed, spinRadius, spikeScaleFactor, radToSpike, smoosh;
+    ofParameter<int> meshSpacingWidth, meshSpacingDepth, maxMeshLength, thickness, maxSpikeHeight, volHistoryLength, timeStep;
     ofParameter<int> meshX, meshY, meshZ;
     ofParameter<bool> bDrawDebug, autoClear,fftNormalize, autoSize, shapeCircular, shapeSpiral, shapeCurve, shapeSpring, shapeSpire, shapePlane, bShowBars, shapeDisc, shapeWavyDisc, bShowWireframe, pauseMesh;
     ofParameter<int> shapeTypeInt;

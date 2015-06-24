@@ -3,9 +3,9 @@
 string drawTypeArray[] = {"Plane", "Circular","Spiral", "Curvy", "Spring", "Spire", "Disc", "Wavy Disc"};
 
 void ofApp::setup() {
-    ofSetWindowTitle("Sonic Sculpture");
+    ofSetWindowTitle("Sonic Sculpture - 's' to save - 'd' for debug");
 	ofSetVerticalSync(true);	
-	ofSetFrameRate(30); ///lets only sample 30 times a second instead of 60 - too much data otherwise
+	ofSetFrameRate(60); ///lets only sample 30 times a second instead of 60 - too much data otherwise
     
     material.setShininess( 120 );
     // the light highlight of the material //
@@ -48,6 +48,9 @@ void ofApp::draw() {
 	string msg = ofToString((int) ofGetFrameRate()) + " fps";
 	ofDrawBitmapString(msg, ofGetWidth() - 80, ofGetHeight() - 20);
     
+    //Cursor showing bug right now..
+    ofShowCursor();
+    ofCircle(ofGetMouseX(), ofGetMouseY(), 5);
 
     
 }
