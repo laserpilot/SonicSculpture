@@ -1,8 +1,6 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxControlPanel.h"
-#include "ofxAutoControlPanel.h"
 #include "ofxProcessFFT.h"
 #include "ofxGui.h"
 #include "fftShapes.h"
