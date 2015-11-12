@@ -585,7 +585,7 @@ void fftShapes::setupGUI(){
     soundParams.add(fftNormalize.set("Normalize over history", false));
     soundParams.add(maxVol.set("Max Volume", 80,1,500));
     soundParams.add(fftBins.set("Num FFT Bins", 32, 8, 96));
-    soundParams.add(binAmount.set("Percentage of FFT", 0.14, 0.05, 0.5));
+    soundParams.add(binAmount.set("Percentage of FFT", 0.14, 0.01, 0.5));
     soundParams.add(exponent.set("Exponent Curve", 1.6, 1, 3.0 ));
     soundParams.add(volHistoryLength.set("Norm. Vol. History Length", 600, 5, 800));
     soundParams.add(timeStep.set("Sample frame skip", 2, 1, 30)); //how often should we sample the sound input? Every frame, or less often? App runs at 60fps, so we just sample every other frame
