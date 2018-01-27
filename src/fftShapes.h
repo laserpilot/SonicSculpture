@@ -60,6 +60,7 @@ private:
     ofParameter<int> meshSpacingWidth, meshSpacingDepth, maxMeshLength, thickness, maxSpikeHeight, volHistoryLength, timeStep;
     ofParameter<int> meshX, meshY, meshZ;
     ofParameter<bool> bDrawDebug, autoClear,fftNormalize, autoSize, shapeCircular, shapeSpiral, shapeCurve, shapeSpring, shapeSpire, shapePlane, bShowBars, shapeDisc, shapeWavyDisc, bShowWireframe, pauseMesh;
+    ofParameter<bool> recIfSilent;
     ofParameter<int> shapeTypeInt;
     int prevShapeTypeInt;
     ofParameter<string> shapeName;

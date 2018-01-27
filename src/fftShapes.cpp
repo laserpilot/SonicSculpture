@@ -29,6 +29,7 @@ void fftShapes::update(){
     
     fft.update();
     
+    fft.setExponent(exponent);
     fft.setFFTpercentage(binAmount);
     fft.setNumFFTBins(fftBins);
     fft.setHistorySize(volHistoryLength);
@@ -89,7 +90,7 @@ void fftShapes::buildMainShape(){
     //cout<<fft.getUnScaledLoudestValue()<<endl;
     if(!pauseMesh){
         if(ofGetFrameNum()%timeStep==0){
-            if (fft.getUnScaledLoudestValue()>1.0){ //dont draw if incoming volume is too low
+            if (fft.getUnScaledLoudestValue()>1.0 || recIfSilent){ //dont draw if incoming volume is too low
                 
                 if(fft.getNormalized()){
                     maxVol = 1; //just 0-1 when normalized
@@ -190,7 +191,7 @@ void fftShapes::connectIndices(){
     int indexWidth = fft.getNumFFTbins();
     indexWidth = ofClamp(indexWidth, 0, fft.getNumFFTbins())+4;
     
-    //ADD ALL THEM INDICES, SON!
+    //Add all indices
     if(timePos>0){
         for (int y = timePos-1; y<timePos; y++){ //time
             for (int x=0; x<indexWidth-1; x++){ //eqCols
@@ -254,13 +255,24 @@ void fftShapes::makeDisc(int xIndex, float yHeight, int zTime){
         // float yOffset = tempX*sin(numRevolutions*TWO_PI);
         //float yOffset = (timePos%30); //stiple bottom
         float yOffset = 0;
+    
+
+    float thickBump;
+    
+    float timeDimple = fmod(((float)timePos/1800)*60,10.0); //this section is for putting notches in the mesh at every 10th second so you can get timestamp approximations later
+    if( timeDimple<0.5){
+        thickBump = 0.2;
+    }else{
+        thickBump = 1;
+    }
         
-        
+        //cout<<"Timecount"<<fmod(((float)timePos/1800)*60,10.0) <<endl;
         if(xIndex==0 && yHeight!= 0){
-            mesh.addVertex(ofVec3f(tempX,-thickness+yOffset,tempZ)); //bottom vert
-            mesh.addColor(ofColor(200, 200, 200));
+            
+            mesh.addVertex(ofVec3f(tempX,-(thickness*thickBump)+yOffset,tempZ)); //bottom vert
+            mesh.addColor(ofColor(200, 200*thickBump, 200));
             mesh.addVertex(ofVec3f(tempX,ySpike+yOffset,tempZ)); //top vert
-            mesh.addColor(ofColor(100, 100, 100));
+            mesh.addColor(ofColor(100, 100*thickBump, 100));
         }
         
         //MAIN PART
@@ -272,9 +284,9 @@ void fftShapes::makeDisc(int xIndex, float yHeight, int zTime){
         //RIGHT SIDE
         if(xIndex==(fft.getNumFFTbins()*meshSpacingWidth)-meshSpacingWidth && yHeight!=0){
             mesh.addVertex(ofVec3f(tempX,ySpike+yOffset,tempZ)); //top right piece
-            mesh.addColor(ofColor(100, 100, 100));
-            mesh.addVertex(ofVec3f(tempX, -thickness+yOffset,tempZ)); //bottom right piece
-            mesh.addColor(ofColor(100, 100, 100));
+            mesh.addColor(ofColor(100, 100*thickBump, 100));
+            mesh.addVertex(ofVec3f(tempX, -thickness*thickBump+yOffset,tempZ)); //bottom right piece
+            mesh.addColor(ofColor(100, 100*thickBump, 100));
         }
 }
 
@@ -549,10 +561,10 @@ void fftShapes::drawDebug(){
         fft.drawBars();
     }
     ofNoFill();
-    ofRect(1080, 0, 200, 200);
-    ofRect(1080, 200, 200, 200);
-    ofRect(1080, 400, 200, 200);
-    ofRect(1080, 600, 200, 200);
+    ofDrawRectangle(1080, 0, 200, 200);
+    ofDrawRectangle(1080, 200, 200, 200);
+    ofDrawRectangle(1080, 400, 200, 200);
+    ofDrawRectangle(1080, 600, 200, 200);
     
     fft.drawHistoryGraph(ofPoint(1080,0), LOW);
     fft.drawHistoryGraph(ofPoint(1080,200),MID );
@@ -567,7 +579,7 @@ void fftShapes::drawDebug(){
     ofFill();
     ofEnableAlphaBlending();
     ofSetColor(255, 255, 255,127);
-    ofRect(0,ofGetHeight()-80, ofMap(timePos, 0, maxMeshLength, 0,ofGetWidth()), 30); //draw progress bar
+    ofDrawRectangle(0,ofGetHeight()-80, ofMap(timePos, 0, maxMeshLength, 0,ofGetWidth()), 30); //draw progress bar
     ofSetColor(80);
     int meshLengthHolder = maxMeshLength;
     ofDrawBitmapString("Time Pos: " + ofToString(timePos) + "/" + ofToString(meshLengthHolder) + "  Time Elapsed: " + ofToString(((float)timePos/1800)*60,2) + "sec", 20, ofGetHeight()-60);
@@ -589,6 +601,7 @@ void fftShapes::setupGUI(){
     soundParams.add(exponent.set("Exponent Curve", 1.6, 1, 3.0 ));
     soundParams.add(volHistoryLength.set("Norm. Vol. History Length", 600, 5, 800));
     soundParams.add(timeStep.set("Sample frame skip", 2, 1, 30)); //how often should we sample the sound input? Every frame, or less often? App runs at 60fps, so we just sample every other frame
+    soundParams.add(recIfSilent.set("RecIfSilent", false)); //if the volume is silent, we can choose not to record
     
     shapeParams.setName("Shape Controls");
     shapeParams.add(autoClear.set("Auto reset mesh",false)); //determines whether mesh will auto clear at the end of its max length
