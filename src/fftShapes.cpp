@@ -13,6 +13,7 @@ void fftShapes::setup(){
         fft.setup();
         timePos = 0;
         setupGUI();
+    realTimeCount = 0;
         
 }
 
@@ -229,6 +230,7 @@ void fftShapes::connectIndices(){
 
 void fftShapes::reset(){
     timePos = 0;
+    realTimeCount = ofGetElapsedTimef();
     mesh.clear();
     numRevolutions = 0;//reset
 }
@@ -257,22 +259,23 @@ void fftShapes::makeDisc(int xIndex, float yHeight, int zTime){
         float yOffset = 0;
     
 
-    float thickBump;
+    float notchDepth;
     
-    float timeDimple = fmod(((float)timePos/1800)*60,10.0); //this section is for putting notches in the mesh at every 10th second so you can get timestamp approximations later
-    if( timeDimple<0.5){
-        thickBump = 0.2;
+   // float timeNotch = fmod(((float)timePos/1800)*60,10.0); //this section is for putting notches in the mesh at every 10th second so you can get timestamp approximations later
+    float timeNotch = fmod(ofGetElapsedTimef()-realTimeCount, 10.0);
+    if( timeNotch<0.5){
+        notchDepth = 0.2;
     }else{
-        thickBump = 1;
+        notchDepth = 1;
     }
         
         //cout<<"Timecount"<<fmod(((float)timePos/1800)*60,10.0) <<endl;
         if(xIndex==0 && yHeight!= 0){
             
-            mesh.addVertex(ofVec3f(tempX,-(thickness*thickBump)+yOffset,tempZ)); //bottom vert
-            mesh.addColor(ofColor(200, 200*thickBump, 200));
+            mesh.addVertex(ofVec3f(tempX,-(thickness*notchDepth)+yOffset,tempZ)); //bottom vert
+            mesh.addColor(ofColor(200, 200*notchDepth, 200));
             mesh.addVertex(ofVec3f(tempX,ySpike+yOffset,tempZ)); //top vert
-            mesh.addColor(ofColor(100, 100*thickBump, 100));
+            mesh.addColor(ofColor(100, 100*notchDepth, 100));
         }
         
         //MAIN PART
@@ -284,9 +287,9 @@ void fftShapes::makeDisc(int xIndex, float yHeight, int zTime){
         //RIGHT SIDE
         if(xIndex==(fft.getNumFFTbins()*meshSpacingWidth)-meshSpacingWidth && yHeight!=0){
             mesh.addVertex(ofVec3f(tempX,ySpike+yOffset,tempZ)); //top right piece
-            mesh.addColor(ofColor(100, 100*thickBump, 100));
-            mesh.addVertex(ofVec3f(tempX, -thickness*thickBump+yOffset,tempZ)); //bottom right piece
-            mesh.addColor(ofColor(100, 100*thickBump, 100));
+            mesh.addColor(ofColor(100, 100*notchDepth, 100));
+            mesh.addVertex(ofVec3f(tempX, -thickness*notchDepth+yOffset,tempZ)); //bottom right piece
+            mesh.addColor(ofColor(100, 100*notchDepth, 100));
         }
 }
 
@@ -582,7 +585,10 @@ void fftShapes::drawDebug(){
     ofDrawRectangle(0,ofGetHeight()-80, ofMap(timePos, 0, maxMeshLength, 0,ofGetWidth()), 30); //draw progress bar
     ofSetColor(80);
     int meshLengthHolder = maxMeshLength;
-    ofDrawBitmapString("Time Pos: " + ofToString(timePos) + "/" + ofToString(meshLengthHolder) + "  Time Elapsed: " + ofToString(((float)timePos/1800)*60,2) + "sec", 20, ofGetHeight()-60);
+    //ofDrawBitmapString("Time Pos: " + ofToString(timePos) + "/" + ofToString(meshLengthHolder) + "  Time Elapsed: " + ofToString(((float)timePos/1800)*60,2) + "sec", 20, ofGetHeight()-60); //this timer is inaccurate because of sample steps and frame rate...
+    
+    ofDrawBitmapString("Time Pos: " + ofToString(timePos) + "/" + ofToString(meshLengthHolder) + "  Time Elapsed: " + ofToString(ofGetElapsedTimef()-realTimeCount,2) + "sec", 20, ofGetHeight()-60);
+    
     //ofDrawBitmapString("Mesh will reset after :", 20, ofGetHeight()-40);
     
     ofDrawBitmapString("Press 's' to save, 'r' to reset, 'c' to change color scheme\nClick/drag to move, right click and drag to zoom, \nDouble click to reset view\n1 to Pause iTunes, 2 to Play iTunes,  ", 400, ofGetHeight()-80);

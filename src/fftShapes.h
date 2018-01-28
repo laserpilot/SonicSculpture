@@ -73,6 +73,7 @@ private:
     
     
     int timePos;
+    float realTimeCount;
     int loudestBand;
     float genericTimer;
     float numRevolutions;
